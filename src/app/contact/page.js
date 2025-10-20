@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from "next/link";
 import NavbarWrapper from "../../components/NavbarWrapper";
 import Footer from "../../components/Footer";
@@ -7,13 +7,20 @@ import Menu3D from "../../components/Menu3D";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const [menuLoaded, setMenuLoaded] = useState(false);
+
+  useEffect(() => {
+    // Retarder l'affichage du menu pour éviter le flash
+    const timer = setTimeout(() => setMenuLoaded(true), 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
       <NavbarWrapper />
       <div className="min-h-screen pt-20 px-6 md:px-20 py-12 relative overflow-hidden">
         {/* Background avec gradient et effets */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 bg-gradient-to-tl from-black via-gray-900 to-black">
           {/* Circles décoratifs */}
           <div className="absolute top-20 right-20 w-72 h-72 bg-or/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-32 left-16 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
@@ -28,18 +35,60 @@ export default function Contact() {
           <h1 className="text-4xl font-bold text-white mb-8 text-center">Contact</h1>
           
           {!sent ? (
-            <form className="max-w-md mb-12 mx-auto" onSubmit={(e) => {e.preventDefault(); setSent(true);}}>
-              <input className="w-full p-3 mb-4 rounded bg-white/5 border border-gray-800 text-white" placeholder="Nom" />
-              <input className="w-full p-3 mb-4 rounded bg-white/5 border border-gray-800 text-white" placeholder="Email" />
-              <textarea className="w-full p-3 mb-4 rounded bg-white/5 border border-gray-800 text-white" placeholder="Message" rows="5"></textarea>
-              <button className="btn-radiant w-full">Envoyer</button>
-            </form>
+            <div className="electric-card-container max-w-md mx-auto mb-12">
+              <div className="electric-card">
+                <div className="electric-content">
+                  <div className="electric-top">
+                    <span className="electric-tag">DigitalQbit pixel</span>
+                    <h2 className="electric-title">Parlons de votre projet</h2>
+                  </div>
+                  <hr className="electric-divider" />
+                  <form className="electric-form" onSubmit={(e) => {e.preventDefault(); setSent(true);}}>
+                    <input 
+                      className="electric-input" 
+                      placeholder="Votre nom" 
+                      type="text"
+                      required
+                    />
+                    <input 
+                      className="electric-input" 
+                      placeholder="Votre email" 
+                      type="email"
+                      required
+                    />
+                    <textarea 
+                      className="electric-textarea" 
+                      placeholder="Décrivez votre projet..." 
+                      rows="4"
+                      required
+                    ></textarea>
+                    <button className="electric-button" type="submit">
+                      Envoyer le message
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
           ) : (
-            <p className="text-green-400 text-xl mb-12 text-center">Message envoyé !</p>
+            <div className="electric-card-container max-w-md mx-auto mb-12">
+              <div className="electric-card electric-success">
+                <div className="electric-content text-center">
+                  <div className="electric-success-icon">✓</div>
+                  <h2 className="electric-title text-green-400">Message envoyé !</h2>
+                  <p className="electric-description">Merci pour votre message. Je vous répondrai dans les plus brefs délais.</p>
+                </div>
+              </div>
+            </div>
           )}
 
           {/* Menu3D sous le formulaire */}
-          <Menu3D instanceId="contact-menu" />
+          <div style={{ 
+            opacity: menuLoaded ? 1 : 0, 
+            transition: 'opacity 0.5s ease',
+            marginTop: '50px'
+          }}>
+            {menuLoaded && <Menu3D instanceId="contact-menu" disableAnimation={true} />}
+          </div>
         </div>
       </div>
       <Footer />

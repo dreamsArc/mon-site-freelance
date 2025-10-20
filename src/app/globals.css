@@ -390,6 +390,57 @@ body {
   transition: all 0.5s ease-out;
 }
 
+/* Classes pour désactiver les effets lumineux sur certaines pages */
+.menu3d-no-glow .left,
+.menu3d-no-glow .center,
+.menu3d-no-glow .right,
+.menu3d-no-glow .lefter,
+.menu3d-no-glow .righter {
+  box-shadow: none !important;
+  transition: all 0.3s ease !important;
+  opacity: 1 !important;
+  transform: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.menu3d-no-glow .left:hover,
+.menu3d-no-glow .center:hover,
+.menu3d-no-glow .right:hover,
+.menu3d-no-glow .lefter:hover,
+.menu3d-no-glow .righter:hover {
+  box-shadow: none !important;
+  background-color: transparent !important;
+  transition: all 0.3s ease !important;
+  transform: scale(1.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+}
+
+.menu3d-no-glow .text {
+  text-shadow: none !important;
+  opacity: 0 !important;
+  color: #fff !important;
+}
+
+.menu3d-no-glow .explainer {
+  text-shadow: none !important;
+  box-shadow: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.menu3d-no-glow .center:hover .explainer {
+  box-shadow: none !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Désactiver complètement les animations d'apparition sur la page contact */
+.menu3d-no-glow .all {
+  transition: none !important;
+}
+
+.menu3d-no-glow .card-container {
+  animation: none !important;
+}
+
 /* ============================================================================ */
 /* QBIT LOGO COMPONENT */
 /* ============================================================================ */
@@ -751,5 +802,187 @@ body {
     transform: translateZ(2000px) translate(25rem, calc((var(--i) - (var(--count) + 1) / 2) * -8rem));
     opacity: 0;
   }
+}
+
+/* ============================================================================ */
+/* Electric Card Styles - Blue Theme */
+/* ============================================================================ */
+
+.electric-card-container {
+  position: relative;
+  width: 100%;
+  padding: 3px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #3b82f6, #60a5fa, #2563eb);
+  box-shadow: 
+    0 0 30px rgba(59, 130, 246, 0.6),
+    0 0 60px rgba(96, 165, 250, 0.4),
+    0 0 90px rgba(37, 99, 235, 0.3);
+  animation: blueGlow 3s ease-in-out infinite alternate;
+}
+
+.electric-card {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  border-radius: 20px;
+  background: -webkit-linear-gradient(135deg, #0a042a, #736f0d, #050b29); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(135deg, #0a042a, #736f0d, #050b29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  z-index: 2;
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    min-height: 450px;
+    border-radius: 18px;
+  }
+}
+
+.electric-card.electric-success {
+  min-height: 300px;
+  background: linear-gradient(135deg, #8fbc8f, #9acd32, #daa520);
+}
+
+.electric-content {
+  position: relative;
+  z-index: 10;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+}
+
+@keyframes blueGlow {
+  0% {
+    box-shadow: 
+      0 0 20px rgba(59, 130, 246, 0.4),
+      0 0 40px rgba(96, 165, 250, 0.3),
+      0 0 60px rgba(37, 99, 235, 0.2);
+  }
+  100% {
+    box-shadow: 
+      0 0 40px rgba(59, 130, 246, 0.8),
+      0 0 80px rgba(96, 165, 250, 0.6),
+      0 0 120px rgba(37, 99, 235, 0.4);
+  }
+}
+
+.electric-top {
+  margin-bottom: 20px;
+}
+
+.electric-tag {
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(96, 165, 250, 0.4);
+  border-radius: 12px;
+  padding: 6px 14px;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #60a5fa;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.electric-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+}
+
+.electric-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.5), transparent);
+  margin: 20px 0;
+}
+
+.electric-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.electric-input, .electric-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.electric-input:focus, .electric-textarea:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+}
+
+.electric-input::placeholder, .electric-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.electric-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 
+    0 0 15px rgba(59, 130, 246, 0.4),
+    0 6px 12px rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+
+.electric-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 0 25px rgba(59, 130, 246, 0.6),
+    0 8px 16px rgba(0, 0, 0, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.electric-button:active {
+  transform: translateY(1px);
+  box-shadow: 
+    0 0 10px rgba(59, 130, 246, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.electric-success-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #32cd32, #90ee90);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: #fff;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 20px rgba(50, 205, 50, 0.4);
+}
+
+.electric-description {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 10px 0 0 0;
 }
 
