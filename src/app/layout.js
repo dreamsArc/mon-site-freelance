@@ -5,6 +5,16 @@ import Providers from './providers';
 export default function RootLayout({ children }) {
   return (
   <html lang="fr" suppressHydrationWarning>
+      <head>
+        {/* Préchargement des images critiques */}
+        <link rel="preload" href="/images/3496219.jpg" as="image" />
+        <link rel="preload" href="/images/3560840.jpg" as="image" />
+        <link rel="preload" href="/images/4905662.jpg" as="image" />
+        <link rel="preload" href="/images/23324.jpg" as="image" />
+        {/* Optimisations DNS */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+      </head>
       <body suppressHydrationWarning>
         <Providers>
           {children}

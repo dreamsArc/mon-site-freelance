@@ -1,14 +1,14 @@
 'use client';
 
 import Link from "next/link";
-import Navbar from "../../components/Navbar";
+import NavbarWrapper from "../../components/NavbarWrapper";
 import Footer from "../../components/Footer";
 
 
 export default function Produits() {
   return (
     <>
-      <Navbar />
+      <NavbarWrapper />
       <div className="min-h-screen pt-20 px-6 md:px-20 py-12 relative overflow-hidden">
         {/* Background avec gradient et effets */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
@@ -22,8 +22,8 @@ export default function Produits() {
 
         {/* Contenu par-dessus le background */}
         <div className="relative z-10">
-          <Link href="/" className="text-blue-400 mb-8 inline-block">← Home</Link>
-          <h1 className="text-4xl font-bold text-white mb-8">Réalisations</h1>
+          <Link href="/?skipIntro=true" className="text-blue-400 mb-8 inline-block">← Accueil</Link>
+          <h1 className="text-4xl font-bold text-white mb-8">Nos Solutions</h1>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="p-6 rounded-xl border border-gray-800 bg-white/5">
               <div className="h-48 bg-gray-800 rounded mb-4 flex items-center">PROJET 1</div>

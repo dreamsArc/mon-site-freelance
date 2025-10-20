@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from "next/link";
-import Navbar from "../../components/Navbar";
+import NavbarWrapper from "../../components/NavbarWrapper";
 import Footer from "../../components/Footer";
 import Menu3D from "../../components/Menu3D";
 
@@ -10,7 +10,7 @@ export default function Contact() {
 
   return (
     <>
-      <Navbar />
+      <NavbarWrapper />
       <div className="min-h-screen pt-20 px-6 md:px-20 py-12 relative overflow-hidden">
         {/* Background avec gradient et effets */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
@@ -24,7 +24,7 @@ export default function Contact() {
 
         {/* Contenu par-dessus le background */}
         <div className="relative z-10">
-          <Link href="/" className="text-blue-400 mb-8 inline-block">← Home</Link>
+          <Link href="/?skipIntro=true" className="text-blue-400 mb-8 inline-block">← Accueil</Link>
           <h1 className="text-4xl font-bold text-white mb-8 text-center">Contact</h1>
           
           {!sent ? (
@@ -38,7 +38,7 @@ export default function Contact() {
             <p className="text-green-400 text-xl mb-12 text-center">Message envoyé !</p>
           )}
 
-          {/* MENU 3D déplacé sous le formulaire */}
+          {/* Menu3D sous le formulaire */}
           <Menu3D instanceId="contact-menu" />
         </div>
       </div>

@@ -23,7 +23,7 @@ export default function HeroSection() {
         transition={{ duration: 0.6 }}
         className="text-or text-sm mb-3"
       >
-        Développement Web • Mobile-first • SEO
+        Développement Web • Inteligence Artificielle • Créateur de contenu 
       </motion.h2>
 
       <motion.h1
@@ -32,8 +32,8 @@ export default function HeroSection() {
         transition={{ duration: 0.7 }}
         className="text-4xl md:text-6xl font-extrabold leading-tight text-white"
       >
-        Salut, moi c’est <span className="text-or">Anthony</span><br />
-        Je crée des expériences web rapides et modernes.
+         <span className="text-or">DigitalQbit Pixel</span><br />
+        Concevoir et réaliser des expériences web rapides modernes et sécurisées.
       </motion.h1>
 
       <motion.p
@@ -42,7 +42,7 @@ export default function HeroSection() {
         transition={{ delay: 0.9 }}
         className="mt-6 max-w-xl text-gray-300"
       >
-        Sites performants, sécurisés et optimisés SEO pour entrepreneurs, particuliers et petites entreprises.
+        Sites performants, sécurisés et optimisés SEO pour entreprises, particuliers et professionnels.
       </motion.p>
 
         <motion.div

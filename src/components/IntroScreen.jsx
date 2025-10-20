@@ -66,9 +66,10 @@ export default function IntroScreen({ onEnter }) {
 
   const handleEnter = () => {
     setIsExiting(true);
+    // Optimisation : Réduire le délai de sortie pour une transition plus rapide
     setTimeout(() => {
       onEnter();
-    }, 1000);
+    }, 500);
   };
 
   return (
@@ -115,12 +116,9 @@ export default function IntroScreen({ onEnter }) {
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 mt-6 relative z-40">
-            Anthony Pichot — Développeur Web
+           Développement Web & Intelligence Artificielle
           </h1>
-          <p className="text-gray-300 max-w-xl mx-auto relative z-40">
-            Entrez dans l'expérience Qbit Pixel et découvrez des sites performants,
-            modernes et pensés avec l'intelligence artificielle.
-          </p>
+          
         </div>
 
         <div className="mb-8">
