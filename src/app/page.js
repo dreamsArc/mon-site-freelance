@@ -8,19 +8,23 @@ import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import ScrollWrapper from "@/components/ScrollWrapper";
 import Menu3D from "@/components/Menu3D";
+import ScrollAnimation, { ScrollCascade } from '@/components/ScrollAnimation';
 import Link from "next/link";
 
 export default function Home() {
-  const [entered, setEntered] = useState(() => {
-    // Optimisation : Vérifier les paramètres URL directement lors de l'initialisation
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get('skipIntro') === 'true';
-    }
-    return false;
-  });
+  const [entered, setEntered] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Vérifier d'abord si le composant est monté
+    setMounted(true);
+    
+    // Vérifier les paramètres URL côté client seulement
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('skipIntro') === 'true') {
+      setEntered(true);
+    }
+
     // Précharger les images critiques pour éviter les sauts
     const criticalImages = [
       '/images/3496219.jpg',
@@ -34,29 +38,47 @@ export default function Home() {
     });
   }, []);
 
+  // Ne pas rendre le contenu jusqu'à ce que le composant soit monté
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <>
       {!entered && <IntroScreen onEnter={() => setEntered(true)} />}
 
-      <div className={`min-h-screen ${entered ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+      <div className={`min-h-screen transition-opacity duration-300 ${entered ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
         <NavbarWrapper />
         <ScrollWrapper>
           <main className="min-h-screen pt-20">
             <HeroSection />
             
-            {/* Menu3D au-dessus du titre "Nos Solutions et services" */}
-            <section className="py-12 px-6 md:px-20">
-              <div className="mb-12 overflow-hidden w-full">
-                <Menu3D instanceId="main-menu" />
-              </div>
-            </section>
+
             
-            <ServicesSection />
+            {/* Menu3D au-dessus du titre "Nos Solutions et services" */}
+            <ScrollAnimation direction="scale" delay={0.3} duration={0.8}>
+              <section className="py-12 px-6 md:px-20">
+                <div className="mb-12 overflow-hidden w-full">
+                  <Menu3D instanceId="main-menu" />
+                </div>
+              </section>
+            </ScrollAnimation>
+            
+            <ScrollAnimation direction="up" delay={0.2} duration={0.7}>
+              <ServicesSection />
+            </ScrollAnimation>
             
             {/* RÉALISATIONS */}
             <section className="py-20 px-6 md:px-20">
-              <h3 className="text-4xl font-bold text-center text-white mb-16">Differente solution</h3>
-              <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              <ScrollAnimation direction="up" delay={0.1} duration={0.6}>
+                <h3 className="text-4xl font-bold text-center text-white mb-16">Differentes solutions</h3>
+              </ScrollAnimation>
+              <ScrollCascade 
+                direction="up" 
+                stagger={0.15} 
+                duration={0.7}
+                className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+              >
                 <div className="p-6 rounded-xl border border-gray-800 bg-white/5">
                   <div className="h-48 rounded-md mb-4 overflow-hidden relative bg-gray-800">
                     <Image 
@@ -105,12 +127,14 @@ export default function Home() {
                   <h4 className="text-xl font-semibold text-white">Site vitrine</h4>
                   <p className="text-gray-300">Next.js • Vercel</p>
                 </div>
-              </div>
-              <div className="text-center mt-12">
-                <Link href="/produits" className="btn-radiant inline-block">
-                  Voir toutes les réalisations
-                </Link>
-              </div>
+              </ScrollCascade>
+              <ScrollAnimation direction="scale" delay={0.4} duration={0.6}>
+                <div className="text-center mt-12">
+                  <Link href="/produits" className="btn-radiant inline-block">
+                    Voir toutes les réalisations
+                  </Link>
+                </div>
+              </ScrollAnimation>
             </section>
           </main>
         </ScrollWrapper>

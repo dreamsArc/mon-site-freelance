@@ -3,13 +3,16 @@ import { useEffect, useState, useMemo } from 'react';
 import { motion } from "framer-motion";
 
 export default function Menu3D({ instanceId = null, disableAnimation = false }) {
-  const [clientId, setClientId] = useState(instanceId || '');
+  const [clientId, setClientId] = useState(instanceId);
   const [isVisible, setIsVisible] = useState(disableAnimation);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     // Générer l'ID seulement côté client pour éviter l'erreur d'hydratation
     if (!clientId) {
-      setClientId(`menu3d-${Math.random().toString(36).substr(2, 9)}`);
+      setClientId(`menu3d-${Date.now().toString(36)}-${Math.floor(Math.random() * 1000)}`);
     }
     
     // Délayer l'animation seulement si elle n'est pas désactivée
@@ -60,6 +63,11 @@ export default function Menu3D({ instanceId = null, disableAnimation = false }) 
       }
     }
   }), [disableAnimation]);
+
+  // Ne pas rendre tant que le composant n'est pas monté côté client
+  if (!mounted) {
+    return <div className="all" style={{ opacity: 0 }} />;
+  }
 
   if (!isVisible && !disableAnimation) {
     return <div className="all" style={{ opacity: 0 }} />;

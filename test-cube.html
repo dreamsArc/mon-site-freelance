@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Spinner Cube</title>
+    <style>
+        body {
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+        }
+
+        .holographic-cube {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            transform-style: preserve-3d;
+            animation: cubeRotate 3s linear infinite;
+            margin: 0 auto;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 1px solid rgba(96, 165, 250, 0.8);
+            background: rgba(96, 165, 250, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .cube-front { transform: rotateY(0deg) translateZ(40px); }
+        .cube-back { transform: rotateY(180deg) translateZ(40px); }
+        .cube-right { transform: rotateY(90deg) translateZ(40px); }
+        .cube-left { transform: rotateY(-90deg) translateZ(40px); }
+        .cube-top { transform: rotateX(90deg) translateZ(40px); }
+        .cube-bottom { transform: rotateX(-90deg) translateZ(40px); }
+
+        .holographic-cube::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #60a5fa, #3b82f6, #2563eb, #60a5fa);
+            background-size: 400% 400%;
+            animation: holographicGlow 2s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes cubeRotate {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        @keyframes holographicGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .message {
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test Spinner Cube Holographique</h1>
+        
+        <div class="holographic-cube">
+            <div class="cube-face cube-front"></div>
+            <div class="cube-face cube-back"></div>
+            <div class="cube-face cube-right"></div>
+            <div class="cube-face cube-left"></div>
+            <div class="cube-face cube-top"></div>
+            <div class="cube-face cube-bottom"></div>
+        </div>
+        
+        <div class="message">Cube Holographique en rotation 3D</div>
+    </div>
+</body>
+</html>

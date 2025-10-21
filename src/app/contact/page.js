@@ -4,6 +4,7 @@ import Link from "next/link";
 import NavbarWrapper from "../../components/NavbarWrapper";
 import Footer from "../../components/Footer";
 import Menu3D from "../../components/Menu3D";
+import ScrollAnimation from "../../components/ScrollAnimation";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
@@ -31,64 +32,75 @@ export default function Contact() {
 
         {/* Contenu par-dessus le background */}
         <div className="relative z-10">
-          <Link href="/?skipIntro=true" className="text-blue-400 mb-8 inline-block">← Accueil</Link>
-          <h1 className="text-4xl font-bold text-white mb-8 text-center">Contact</h1>
+          <ScrollAnimation direction="left" duration={0.5}>
+            <Link href="/?skipIntro=true" className="text-blue-400 mb-8 inline-block">← Accueil</Link>
+          </ScrollAnimation>
+          
+          <ScrollAnimation direction="up" delay={0.1} duration={0.6}>
+            <h1 className="text-4xl font-bold text-white mb-8 text-center">Contact</h1>
+          </ScrollAnimation>
           
           {!sent ? (
-            <div className="electric-card-container max-w-md mx-auto mb-12">
-              <div className="electric-card">
-                <div className="electric-content">
-                  <div className="electric-top">
-                    <span className="electric-tag">DigitalQbit pixel</span>
-                    <h2 className="electric-title">Parlons de votre projet</h2>
+            <ScrollAnimation direction="scale" delay={0.2} duration={0.8}>
+              <div className="electric-card-container max-w-md mx-auto mb-12">
+                <div className="electric-card">
+                  <div className="electric-content">
+                    <div className="electric-top">
+                      <span className="electric-tag">DigitalQbit pixel</span>
+                      <h2 className="electric-title">Parlons de votre projet</h2>
+                    </div>
+                    <hr className="electric-divider" />
+                    <form className="electric-form" onSubmit={(e) => {e.preventDefault(); setSent(true);}}>
+                      <input 
+                        className="electric-input" 
+                        placeholder="Votre nom" 
+                        type="text"
+                        required
+                      />
+                      <input 
+                        className="electric-input" 
+                        placeholder="Votre email" 
+                        type="email"
+                        required
+                      />
+                      <textarea 
+                        className="electric-textarea" 
+                        placeholder="Décrivez votre projet..." 
+                        rows="4"
+                        required
+                      ></textarea>
+                      <button className="electric-button" type="submit">
+                        Envoyer le message
+                      </button>
+                    </form>
                   </div>
-                  <hr className="electric-divider" />
-                  <form className="electric-form" onSubmit={(e) => {e.preventDefault(); setSent(true);}}>
-                    <input 
-                      className="electric-input" 
-                      placeholder="Votre nom" 
-                      type="text"
-                      required
-                    />
-                    <input 
-                      className="electric-input" 
-                      placeholder="Votre email" 
-                      type="email"
-                      required
-                    />
-                    <textarea 
-                      className="electric-textarea" 
-                      placeholder="Décrivez votre projet..." 
-                      rows="4"
-                      required
-                    ></textarea>
-                    <button className="electric-button" type="submit">
-                      Envoyer le message
-                    </button>
-                  </form>
                 </div>
               </div>
-            </div>
+            </ScrollAnimation>
           ) : (
-            <div className="electric-card-container max-w-md mx-auto mb-12">
-              <div className="electric-card electric-success">
-                <div className="electric-content text-center">
-                  <div className="electric-success-icon">✓</div>
-                  <h2 className="electric-title text-green-400">Message envoyé !</h2>
-                  <p className="electric-description">Merci pour votre message. Je vous répondrai dans les plus brefs délais.</p>
+            <ScrollAnimation direction="scale" delay={0.2} duration={0.8}>
+              <div className="electric-card-container max-w-md mx-auto mb-12">
+                <div className="electric-card electric-success">
+                  <div className="electric-content text-center">
+                    <div className="electric-success-icon">✓</div>
+                    <h2 className="electric-title text-green-400">Message envoyé !</h2>
+                    <p className="electric-description">Merci pour votre message. Je vous répondrai dans les plus brefs délais.</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ScrollAnimation>
           )}
 
           {/* Menu3D sous le formulaire */}
-          <div style={{ 
-            opacity: menuLoaded ? 1 : 0, 
-            transition: 'opacity 0.5s ease',
-            marginTop: '50px'
-          }}>
-            {menuLoaded && <Menu3D instanceId="contact-menu" disableAnimation={true} />}
-          </div>
+          <ScrollAnimation direction="fade" delay={0.5} duration={0.8}>
+            <div style={{ 
+              opacity: menuLoaded ? 1 : 0, 
+              transition: 'opacity 0.5s ease',
+              marginTop: '50px'
+            }}>
+              {menuLoaded && <Menu3D instanceId="contact-menu" disableAnimation={true} />}
+            </div>
+          </ScrollAnimation>
         </div>
       </div>
       <Footer />

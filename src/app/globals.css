@@ -390,17 +390,18 @@ body {
   transition: all 0.5s ease-out;
 }
 
-/* Classes pour désactiver les effets lumineux sur certaines pages */
+/* Classes pour désactiver complètement tous les effets sur la page contact */
 .menu3d-no-glow .left,
 .menu3d-no-glow .center,
 .menu3d-no-glow .right,
 .menu3d-no-glow .lefter,
 .menu3d-no-glow .righter {
   box-shadow: none !important;
+  border: 1px solid #fff !important;
   transition: all 0.3s ease !important;
   opacity: 1 !important;
   transform: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background-blend-mode: normal !important;
 }
 
 .menu3d-no-glow .left:hover,
@@ -409,27 +410,50 @@ body {
 .menu3d-no-glow .lefter:hover,
 .menu3d-no-glow .righter:hover {
   box-shadow: none !important;
+  border: 1px solid #fff !important;
   background-color: transparent !important;
   transition: all 0.3s ease !important;
   transform: scale(1.02) !important;
-  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  background-blend-mode: normal !important;
 }
 
+/* Annuler complètement les effets bleus sur le texte */
 .menu3d-no-glow .text {
   text-shadow: none !important;
   opacity: 0 !important;
   color: #fff !important;
 }
 
+/* Annuler tous les effets sur l'explainer */
 .menu3d-no-glow .explainer {
   text-shadow: none !important;
   box-shadow: none !important;
   transition: all 0.3s ease !important;
+  background-image: radial-gradient(circle at center top, #333, #111) !important;
 }
 
 .menu3d-no-glow .center:hover .explainer {
   box-shadow: none !important;
   transition: all 0.3s ease !important;
+  transform: none !important;
+  background-image: radial-gradient(circle at center top, #444, #222) !important;
+}
+
+/* Override complet des couleurs de fond pour éviter le background-color bleu */
+.menu3d-no-glow .left,
+.menu3d-no-glow .center, 
+.menu3d-no-glow .right,
+.menu3d-no-glow .lefter,
+.menu3d-no-glow .righter {
+  background-color: transparent !important;
+}
+
+.menu3d-no-glow .left:hover,
+.menu3d-no-glow .center:hover,
+.menu3d-no-glow .right:hover, 
+.menu3d-no-glow .lefter:hover,
+.menu3d-no-glow .righter:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
 /* Désactiver complètement les animations d'apparition sur la page contact */
@@ -826,8 +850,8 @@ body {
   width: 100%;
   min-height: 500px;
   border-radius: 20px;
-  background: -webkit-linear-gradient(135deg, #0a042a, #736f0d, #050b29); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(135deg, #0a042a, #736f0d, #050b29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(125deg, #040634,#605d06,#827e03,#2b2603,#565a16); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(125deg, #040634,#605d06,#827e03,#2b2603,#565a16); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   backdrop-filter: blur(10px);
   overflow: hidden;
   z-index: 2;
@@ -841,7 +865,7 @@ body {
 
 .electric-card.electric-success {
   min-height: 300px;
-  background: linear-gradient(135deg, #8fbc8f, #9acd32, #daa520);
+  background: linear-gradient(125deg, #040634,#605d06,#827e03,#2b2603,#565a16);
 }
 
 .electric-content {
@@ -984,5 +1008,734 @@ body {
 .electric-description {
   color: rgba(255, 255, 255, 0.8);
   margin: 10px 0 0 0;
+}
+
+/* ============================================================================ */
+/* HERO SLIDER */
+/* ============================================================================ */
+
+/* Hero Slider */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 500px;
+  max-height: 800px;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  margin: 2rem 0;
+  touch-action: pan-y; /* Permet le scroll vertical mais gère les gestes horizontaux */
+}
+
+/* Styles spécifiques mobile */
+.hero-slider.mobile {
+  height: 60vh;
+  min-height: 400px;
+  border-radius: 12px;
+  margin: 1rem 0;
+  touch-action: pan-y;
+}
+
+/* Styles spécifiques tablet */
+.hero-slider.tablet {
+  height: 65vh;
+  min-height: 450px;
+}
+
+/* Styles spécifiques desktop */
+.hero-slider.desktop {
+  height: 70vh;
+}
+
+/* Version plein écran pour desktop */
+@media (min-width: 1024px) {
+  .hero-slider.fullscreen {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    border-radius: 0;
+    height: calc(100vh - 80px); /* Hauteur totale moins la navbar */
+    max-height: none;
+    box-shadow: none;
+    margin: 0;
+  }
+}
+
+.slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.3) 40%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  z-index: 1;
+}
+
+/* Overlay supplémentaire spécifique à la zone de texte */
+.slide-content::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  z-index: -1;
+}
+
+.slide-content {
+  position: absolute;
+  bottom: 20%;
+  left: 8%;
+  right: 8%;
+  z-index: 2;
+  color: white;
+  transform: translateY(50px);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  padding: 2rem;
+}
+
+.slide.active .slide-content {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 0.3s;
+}
+
+.slide-content h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #ffffff, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.slide-content p {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.6);
+  max-width: 600px;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.6;
+}
+
+.slide-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(96, 165, 250, 0.3);
+  border: 2px solid transparent;
+}
+
+.slide-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(96, 165, 250, 0.4);
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+/* Navigation */
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.nav-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Dots */
+.dots {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 3;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.dot.active {
+  background: white;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.dot::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.dot.active::before {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.dot:hover {
+  transform: scale(1.2);
+}
+
+/* Navigation horizontale pour desktop */
+@media (min-width: 1024px) {
+  .hero-slider.fullscreen {
+    cursor: grab;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .hero-slider.fullscreen:active {
+    cursor: grabbing;
+  }
+  
+  .hero-slider.fullscreen .slides {
+    display: flex;
+    width: 500%; /* 5 slides * 100% */
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+  
+  .hero-slider.fullscreen .slide {
+    position: relative;
+    width: 20%; /* 100% / 5 slides */
+    height: 100%;
+    flex-shrink: 0;
+    opacity: 1;
+    transform: none;
+    transition: none;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .hero-slider.fullscreen .slide.active {
+    opacity: 1;
+    transform: none;
+  }
+  
+  /* Indicateur de scroll */
+  .hero-slider.fullscreen::after {
+    content: 'Survolez et utilisez la molette ou les flèches ← →';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    z-index: 4;
+    animation: scrollHint 3s ease-in-out infinite;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+  }
+  
+  @keyframes scrollHint {
+    0%, 100% { opacity: 0.8; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-2px); }
+  }
+
+  /* Améliorations visuelles pour le mode fullscreen */
+  .hero-slider.fullscreen .slide-content {
+    left: 10%;
+    right: 10%;
+    bottom: 15%;
+  }
+
+  .hero-slider.fullscreen .slider-nav {
+    padding: 0 3rem;
+  }
+
+  .hero-slider.fullscreen .nav-btn {
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .hero-slider.fullscreen .nav-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.15);
+  }
+
+  /* Zone de détection du hover - quart bas de l'écran */
+  .hover-zone-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 25vh; /* Quart de la hauteur de l'écran */
+    z-index: 15;
+    pointer-events: all;
+  }
+
+  /* Barre de progression avec miniatures d'images */
+  .image-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    z-index: 10;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+  }
+
+  /* Quand on survole UNIQUEMENT la zone du quart bas, on affiche la barre */
+  .hover-zone-bottom:hover ~ .image-progress-bar {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  /* Maintenir la barre visible quand on la survole directement */
+  .image-progress-bar:hover {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+
+  .progress-track {
+    display: flex;
+    width: auto;
+    height: 60px;
+    gap: 12px;
+    position: relative;
+    justify-content: center;
+  }
+
+  .progress-thumbnail {
+    width: 80px;
+    height: 60px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  /* Animation d'apparition séquentielle - seulement quand la zone du bas est survolée */
+  .hover-zone-bottom:hover ~ .image-progress-bar .progress-thumbnail:nth-child(1),
+  .image-progress-bar:hover .progress-thumbnail:nth-child(1) {
+    animation: slideUpThumbnail 0.5s ease forwards 0.1s;
+  }
+  .hover-zone-bottom:hover ~ .image-progress-bar .progress-thumbnail:nth-child(2),
+  .image-progress-bar:hover .progress-thumbnail:nth-child(2) {
+    animation: slideUpThumbnail 0.5s ease forwards 0.2s;
+  }
+  .hover-zone-bottom:hover ~ .image-progress-bar .progress-thumbnail:nth-child(3),
+  .image-progress-bar:hover .progress-thumbnail:nth-child(3) {
+    animation: slideUpThumbnail 0.5s ease forwards 0.3s;
+  }
+  .hover-zone-bottom:hover ~ .image-progress-bar .progress-thumbnail:nth-child(4),
+  .image-progress-bar:hover .progress-thumbnail:nth-child(4) {
+    animation: slideUpThumbnail 0.5s ease forwards 0.4s;
+  }
+  .hover-zone-bottom:hover ~ .image-progress-bar .progress-thumbnail:nth-child(5),
+  .image-progress-bar:hover .progress-thumbnail:nth-child(5) {
+    animation: slideUpThumbnail 0.5s ease forwards 0.5s;
+  }
+
+  @keyframes slideUpThumbnail {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .progress-thumbnail.active {
+    border-color: #60a5fa;
+    transform: scale(1.05) translateY(0);
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+  }
+
+  .progress-thumbnail:hover {
+    transform: translateY(-5px) scale(1.05);
+    border-color: rgba(96, 165, 250, 0.8);
+    box-shadow: 0 10px 25px rgba(96, 165, 250, 0.3);
+  }
+
+  /* Titre au hover des miniatures */
+  .progress-thumbnail::after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .progress-thumbnail:hover::after {
+    opacity: 1;
+  }
+
+  .progress-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    border-radius: 2px;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
+  }
+
+  /* Message d'aide pour le fullscreen */
+  .scroll-hint {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    z-index: 4;
+    animation: scrollHintPulse 3s ease-in-out infinite;
+    backdrop-filter: blur(10px);
+  }
+
+  @keyframes scrollHintPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  /* Indicateur de direction */
+  .direction-indicator {
+    display: inline-block;
+    margin-left: 15px;
+    padding: 4px 8px;
+    background: rgba(96, 165, 250, 0.2);
+    border-radius: 12px;
+    font-size: 12px;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+  }
+
+  /* Boutons de navigation avec états désactivés */
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .nav-btn:disabled:hover {
+    transform: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+  }
+
+  /* Animation spéciale pour les changements de direction */
+  .slide {
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .slide.direction-change {
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* Indicateur visuel des limites */
+  .hero-slider.fullscreen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+    border: 3px solid transparent;
+    transition: border-color 0.5s ease;
+  }
+
+  /* Indication visuelle quand on atteint les limites */
+  .hero-slider.fullscreen.at-start::before {
+    border-left-color: rgba(96, 165, 250, 0.6);
+    box-shadow: inset 5px 0 15px rgba(96, 165, 250, 0.2);
+  }
+
+  .hero-slider.fullscreen.at-end::before {
+    border-right-color: rgba(96, 165, 250, 0.6);
+    box-shadow: inset -5px 0 15px rgba(96, 165, 250, 0.2);
+  }
+
+  /* Barre de progression avec couleur selon direction */
+  .progress-indicator.reverse {
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.8);
+  }
+
+  /* Responsive pour la zone de hover */
+  @media (max-width: 1024px) {
+    .hover-zone-bottom {
+      height: 30vh; /* Un peu plus grand sur tablette pour faciliter l'interaction */
+    }
+    
+    .progress-thumbnail {
+      width: 60px;
+      height: 45px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hover-zone-bottom {
+      height: 35vh; /* Encore plus grand sur mobile */
+    }
+    
+    .progress-thumbnail {
+      width: 50px;
+      height: 38px;
+    }
+
+    .direction-indicator {
+      display: block;
+      margin-left: 0;
+      margin-top: 5px;
+    }
+    
+    .scroll-hint p {
+      font-size: 11px;
+      line-height: 1.4;
+    }
+  }
+}
+
+/* Styles spécifiques mobile - Désactivation des hover effects */
+.hero-slider.mobile .slide-btn:hover,
+.hero-slider.mobile .nav-btn:hover,
+.hero-slider.mobile .dot:hover {
+  transform: none;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.hero-slider.mobile .slide-btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  margin-top: 1.5rem;
+}
+
+/* Masquer les éléments desktop sur mobile */
+.hero-slider.mobile .hover-zone-bottom,
+.hero-slider.mobile .image-progress-bar {
+  display: none;
+}
+
+/* Améliorer les zones de touch sur mobile */
+.hero-slider.mobile .dots {
+  padding: 1rem 0;
+}
+
+.hero-slider.mobile .dot {
+  width: 12px;
+  height: 12px;
+  margin: 0 8px;
+}
+
+/* Indicateur de swipe pour mobile */
+.swipe-indicator {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  opacity: 0;
+  animation: fadeInOut 3s ease-in-out infinite;
+}
+
+.swipe-hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  backdrop-filter: blur(10px);
+}
+
+.swipe-hint span:first-child,
+.swipe-hint span:last-child {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+@keyframes fadeInOut {
+  0%, 70%, 100% { opacity: 0; }
+  10%, 60% { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .hero-slider {
+    height: calc(100vh - 200px);
+    min-height: 400px;
+    margin: 1rem;
+  }
+  
+  .slide-content {
+    bottom: 15%;
+    left: 5%;
+    right: 5%;
+  }
+  
+  .nav-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+  
+  .slider-nav {
+    padding: 0 1rem;
+  }
+  
+  .slide-content h2 {
+    font-size: 2rem;
+  }
+  
+  .slide-content p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-slider {
+    height: 50vh;
+    min-height: 350px;
+    border-radius: 12px;
+  }
+  
+  .nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .dots {
+    bottom: 20px;
+    gap: 8px;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
 }
 
