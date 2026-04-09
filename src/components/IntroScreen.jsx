@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import QbitLogo from "./QbitLogo";
 import Gallery3D from "./Gallery3D";
+import LiquidGlass from "./LiquidGlass";
 
 export default function IntroScreen({ onEnter }) {
-  const skills = ["React", "Next.js", "Tailwind", "SEO", "Performance", "Mobile-first"];
+  const skills = ["Site Web", "E-commerce", "Intelligence Artificielle", "SEO", "Performance", "Mobile"];
   const [hovered, setHovered] = useState(null);
   const [isExiting, setIsExiting] = useState(false);
 
@@ -12,8 +13,7 @@ export default function IntroScreen({ onEnter }) {
     const btn = document.getElementById("enter-btn");
     if (btn) btn.focus();
 
-    // Initialiser le canvas background - seulement côté client
-    if (typeof window === 'undefined') return;
+    // Initialiser le canvas background
     
     const canvas = document.getElementById("intro-canvas");
     if (canvas && canvas.getContext) {
@@ -49,16 +49,18 @@ export default function IntroScreen({ onEnter }) {
         ctx.stroke();
       }
 
+      let rafId;
       function animate() {
         ctx.fillStyle = 'rgba(0, 0, 0, 1)';
         ctx.fillRect(0, 0, width, height);
         drawWaterSurface();
-        requestAnimationFrame(animate);
+        rafId = requestAnimationFrame(animate);
       }
 
       animate();
 
       return () => {
+        cancelAnimationFrame(rafId);
         window.removeEventListener('resize', resizeHandler);
       };
     }
@@ -90,6 +92,9 @@ export default function IntroScreen({ onEnter }) {
             </div>
             
             <canvas id="intro-canvas" className="absolute inset-0 w-full h-full z-5" style={{ opacity: 0.2 }}></canvas>
+
+            {/* Liquid Glass metaball overlay */}
+            <LiquidGlass />
             
             {/* Circuits décoratifs */}
             <div className="circuits absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4/5 h-1/3 pointer-events-none z-10">
@@ -99,23 +104,23 @@ export default function IntroScreen({ onEnter }) {
             </div>
           </div>
 
-          <div className="max-w-3xl w-full p-6 text-center relative z-30">
-        <div className="mb-8 relative">
-          {/* Logo à son ancienne position au-dessus */}
-          <div className="mx-auto mb-4 flex justify-center relative z-40">
-            <QbitLogo size="normal" />
+          <div className="max-w-4xl w-full p-6 text-center relative z-30">
+        <div className="mb-8 relative flex flex-col items-center justify-center">
+          {/* Logo centré au-dessus du titre */}
+          <div className="flex justify-center relative z-40 mb-4">
+            <QbitLogo size="golden" />
           </div>
 
           <div className="text-center relative z-40">
             <div className="qbit-text-logo mb-6">
-              DIGITAL QBIT PIXEL
+              PIXEL CRÉATION STUDIO
             </div>
             <div className="qbit-text-reflection">
-              DIGITAL QBIT PIXEL
+              PIXEL CRÉATION STUDIO
             </div>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 mt-6 relative z-40">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-100 mb-2 mt-6 relative z-40">
            Développement Web & Intelligence Artificielle
           </h1>
           
@@ -139,23 +144,17 @@ export default function IntroScreen({ onEnter }) {
         <div className="flex justify-center gap-4">
           <button
             id="enter-btn"
-            onClick={() => handleEnter()}
+            onClick={handleEnter}
             className="btn-radiant pulse-neon focus:outline-none"
           >
             Entrer
           </button>
 
-          <button
-            onClick={() => handleEnter()}
-            className="px-4 py-3 rounded-full border border-gray-700 text-sm text-gray-300 hover:bg-white/2"
-            title="Accès rapide"
-          >
-            Accès rapide
-          </button>
+         
         </div>
 
         <p className="mt-6 text-xs text-gray-500">
-          Astuce : explore les réalisations une fois à l'intérieur.
+          Un Univers de possibilités
         </p>
         </div>
         </motion.div>

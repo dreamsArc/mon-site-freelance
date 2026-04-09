@@ -9,7 +9,18 @@ export default function HeroSlider({ slides = [], fullscreen = false }) {
   const [isTablet, setIsTablet] = useState(false);
   const [direction, setDirection] = useState(1); // 1 pour avant, -1 pour arrière
   const [isScrolling, setIsScrolling] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
   const slidesRef = useRef(null);
+  const hideProgressTimerRef = useRef(null);
+
+  const showProgressBar = () => {
+    if (hideProgressTimerRef.current) clearTimeout(hideProgressTimerRef.current);
+    setShowProgress(true);
+  };
+
+  const scheduleHideProgressBar = () => {
+    hideProgressTimerRef.current = setTimeout(() => setShowProgress(false), 150);
+  };
 
   // Navigation avec direction automatique et va-et-vient
   const navigateSlide = (increment) => {
@@ -224,7 +235,17 @@ export default function HeroSlider({ slides = [], fullscreen = false }) {
             style={{ backgroundImage: `url('${slide.image}')` }}
           >
             <div className="slide-content">
-              <h2>{slide.title}</h2>
+              <h2
+                className="slide-title-neon"
+                style={{
+                  borderLeft: `4px solid ${slide.themeColor || '#3B82F6'}`,
+                  paddingLeft: '1rem',
+                  backgroundImage: `linear-gradient(135deg, #c8c8c8 40%, ${slide.themeColor || '#3B82F6'})`,
+                  '--neon-color': slide.themeColor || '#3B82F6',
+                  '--neon-color-mid': `${slide.themeColor || '#3B82F6'}55`,
+                  '--neon-color-low': `${slide.themeColor || '#3B82F6'}22`,
+                }}
+              >{slide.title}</h2>
               <p>{slide.description}</p>
               {slide.link && (
                 <a href={slide.link} className="slide-btn">
@@ -268,7 +289,12 @@ export default function HeroSlider({ slides = [], fullscreen = false }) {
 
       {/* Zone de détection du hover en bas - Desktop uniquement */}
       {isDesktop && fullscreen && (
-        <div className="hover-zone-bottom"></div>
+        <div
+          className="hover-zone-bottom"
+          onMouseEnter={showProgressBar}
+          onMouseLeave={scheduleHideProgressBar}
+          style={{ pointerEvents: showProgress ? 'none' : 'all' }}
+        />
       )}
 
       {/* Indicateur de swipe pour mobile */}
@@ -284,7 +310,16 @@ export default function HeroSlider({ slides = [], fullscreen = false }) {
 
       {/* Barre de progression avec miniatures - n'apparaît qu'au hover du bas */}
       {isDesktop && fullscreen && (
-        <div className="image-progress-bar">
+        <div
+          className={`image-progress-bar${showProgress ? ' visible' : ''}`}
+          onMouseEnter={showProgressBar}
+          onMouseLeave={scheduleHideProgressBar}
+          style={{
+            opacity: showProgress ? 1 : 0,
+            transform: showProgress ? 'translateY(0)' : 'translateY(100%)',
+            pointerEvents: showProgress ? 'all' : 'none',
+          }}
+        >
           <div className="progress-track">
             {slides.map((slide, index) => (
               <div

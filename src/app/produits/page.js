@@ -16,35 +16,40 @@ export default function Produits() {
       title: "E-commerce",
       description: "Solutions de vente en ligne performantes avec Next.js et Stripe. Interface moderne, paiements sécurisés et gestion complète des stocks.",
       image: "/images/6461401.jpg",
-      link: "/contact"
+      link: "/contact",
+      themeColor: "#908475"
     },
     {
       id: 2,
       title: "Portfolio",
       description: "Sites vitrines élégants et responsives avec React et Tailwind CSS. Design sur-mesure pour mettre en valeur votre activité.",
-      image: "/images/3560840.jpg",
-      link: "/contact"
+      image: "/images/4905662.webp",
+      link: "/contact",
+      themeColor: "#a08028"
     },
     {
       id: 3,
       title: "Applications Web",
       description: "Développement d'applications web modernes et performantes. Interface utilisateur intuitive et expérience optimisée.",
-      image: "/images/4905662.jpg",
-      link: "/contact"
+      image: "/images/6358326.webp",
+      link: "/contact",
+      themeColor: "#7b34ab"
     },
     {
       id: 4,
       title: "SEO & Performance",
-      description: "Optimisation complète pour les moteurs de recherche. Amélioration des performances et de la visibilité en ligne.",
+      description: "Optimisation pour les moteurs de recherche. Amélioration des performances et de la visibilité en ligne.",
       image: "/images/1690.jpg",
-      link: "/contact"
+      link: "/contact",
+      themeColor: "#0EA5A0"
     },
     {
       id: 5,
       title: "Solutions IA",
-      description: "Intégration d'intelligence artificielle dans vos projets web. Automatisation et fonctionnalités intelligentes sur mesure.",
+      description: "Intégration d'intelligence artificielle, chatbot, automatisation dans vos projets web. Automatiser et fonctionnalités intelligentes sur mesure.",
       image: "/images/852.jpg",
-      link: "/contact"
+      link: "/contact",
+      themeColor: "#3aa7a8"
     }
   ], []);
 
@@ -62,27 +67,10 @@ export default function Produits() {
 
   return (
     <div className="h-screen bg-black text-white overflow-hidden">
-      <NavbarWrapper />
+      <NavbarWrapper autoHide={true} />
       
       <main className="h-full overflow-hidden flex flex-col">
         <div className="flex-1 overflow-hidden flex flex-col">
-          
-          {/* Header - Compact */}
-          <div className="flex-shrink-0 pt-4 pb-2 px-6 bg-black/50 backdrop-blur-sm">
-            <ScrollAnimation type="left" className="mb-1">
-              <Link 
-                href="/?skipIntro=true" 
-                className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors text-sm"
-              >
-                ← Retour à l&apos;accueil
-              </Link>
-            </ScrollAnimation>
-
-            <ScrollAnimation type="up" className="text-center">
-             
-              
-            </ScrollAnimation>
-          </div>
 
           {/* Hero Slider - Prend tout l'espace restant */}
           <div className="flex-1">

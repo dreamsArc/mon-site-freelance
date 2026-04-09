@@ -10,12 +10,12 @@ export default function QbitLogo({ size = 'normal' }) {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    const containerSize = size === 'small' ? 120 : 200;
+    const containerSize = size === 'small' ? 120 : size === 'golden' ? 420 : 200;
     
     canvas.width = containerSize;
     canvas.height = containerSize;
     
-    const cubeSize = size === 'small' ? 15 : 25;
+    const cubeSize = size === 'small' ? 15 : size === 'golden' ? 52 : 25;
     let rotation = 0;
     let glitchActive = false;
     let glitchTimer = 0;
@@ -76,7 +76,7 @@ export default function QbitLogo({ size = 'normal' }) {
 
     function drawSmoothDrop(centerX, centerY, scale) {
       const alpha = 1.0; // Augmenté de 0.9 à 1.0 pour plus d'éclat
-      const dropSize = (size === 'small' ? 8 : 12) * scale; // Taille réduite
+      const dropSize = (size === 'small' ? 8 : size === 'golden' ? 24 : 12) * scale; // Taille réduite
       
       ctx.save();
       ctx.translate(centerX, centerY);
@@ -126,7 +126,7 @@ export default function QbitLogo({ size = 'normal' }) {
       ctx.fill();
       
       // Effet de lueur néon plus subtil - style du texte amélioré
-      ctx.shadowBlur = size === 'small' ? 8 : 12; // Réduit pour plus de netteté
+      ctx.shadowBlur = size === 'small' ? 8 : size === 'golden' ? 24 : 12; // Réduit pour plus de netteté
       ctx.shadowColor = 'rgba(255, 215, 0, 0.6)'; // Moins intense, plus raffiné
       ctx.fill();
       
@@ -163,8 +163,8 @@ export default function QbitLogo({ size = 'normal' }) {
         ctx.moveTo(v1.x + offset, v1.y);
         ctx.lineTo(v2.x + offset, v2.y);
         ctx.strokeStyle = gradient;
-        ctx.lineWidth = size === 'small' ? 1.5 : 2;
-        ctx.shadowBlur = size === 'small' ? 8 : 12;
+        ctx.lineWidth = size === 'small' ? 1.5 : size === 'golden' ? 3.5 : 2;
+        ctx.shadowBlur = size === 'small' ? 8 : size === 'golden' ? 24 : 12;
         ctx.shadowColor = `rgba(212, 175, 55, ${alpha * 0.4})`;
         ctx.stroke();
       });

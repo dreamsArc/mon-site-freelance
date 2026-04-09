@@ -7,7 +7,7 @@ export default function Providers({ children }) {
   useEffect(() => {
     // Crisp Chatbot - Configuration propre
     window.$crisp = [];
-    window.CRISP_WEBSITE_ID = "07b2fe95-dc45-4246-bc0f-5bc6d8edcb5c";
+    window.CRISP_WEBSITE_ID = process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID;
     
     // Vérifier si le script n'est pas déjà chargé
     if (!document.querySelector('script[src*="client.crisp.chat"]')) {
